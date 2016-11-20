@@ -4,6 +4,9 @@ MAINTAINER Johannes Schramm <js@jss.de>
 ENV VERSION 0.4.6
 ENV CHECKSUM 946e8e4161f7ef84be42430b6e9d3bb7dd4bbbe241b409be208c14447d7aa7a6
 
+ENV PKG baikal-$VERSION.zip
+ENV URL https://github.com/fruux/Baikal/releases/download/$VERSION/$PKG
+
 RUN apk --no-cache add \
       nginx \
       php5-ctype \
@@ -19,10 +22,10 @@ RUN apk --no-cache add \
       openssl \
       unzip
 RUN sed -ie "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/php.ini
-RUN wget https://github.com/fruux/Baikal/releases/download/$VERSION/baikal-$VERSION.zip
-RUN echo $CHECKSUM "" baikal*.zip | sha256sum -c -
-RUN unzip baikal*.zip -d /var/www
-RUN rm baikal*.zip
+RUN wget $URL
+RUN echo $CHECKSUM "" $PKG | sha256sum -c -
+RUN unzip $PKG -d /var/www
+RUN rm $PKG
 RUN mkdir /var/www/baikal/html/.well-known
 RUN apk --force --purge --rdepends del \
       openssl \

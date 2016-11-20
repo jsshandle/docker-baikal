@@ -10,7 +10,7 @@ Execute the following command to run this image:
 docker run --publish 80:80 --volume /var/opt/baikal:/var/www/baikal/Specific jsshandle/baikal
 ```
 
-### License
+## License
 
 [The MIT License](LICENSE)
 
