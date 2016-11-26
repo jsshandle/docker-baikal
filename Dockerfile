@@ -17,7 +17,7 @@ RUN apk --no-cache add \
       php5-pdo_sqlite \
       php5-xml \
       php5-xmlreader \
-      supervisor
+      s6
 RUN apk --no-cache add \
       openssl \
       unzip
@@ -32,8 +32,7 @@ RUN apk --force --purge --rdepends del \
       unzip
 
 ADD /entrypoint.sh /entrypoint.sh
-ADD /etc/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD /etc/supervisord.conf /etc/supervisord.conf
+ADD /etc /etc
 
 RUN chmod +x /entrypoint.sh
 
