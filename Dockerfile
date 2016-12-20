@@ -17,17 +17,17 @@ RUN apk --no-cache add \
       php5-pdo_sqlite \
       php5-xml \
       php5-xmlreader \
-      s6
-RUN apk --no-cache add \
+      s6 \
+ && apk --no-cache add \
       openssl \
-      unzip
-RUN sed -ie "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/php.ini
-RUN wget $URL
-RUN echo $CHECKSUM "" $PKG | sha256sum -c -
-RUN unzip $PKG -d /var/www
-RUN rm $PKG
-RUN mkdir /var/www/baikal/html/.well-known
-RUN apk --force --purge --rdepends del \
+      unzip \
+ && sed -ie "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/php.ini \
+ && wget $URL \
+ && echo $CHECKSUM "" $PKG | sha256sum -c - \
+ && unzip $PKG -d /var/www \
+ && rm $PKG \
+ && mkdir /var/www/baikal/html/.well-known \
+ && apk --force --purge --rdepends del \
       openssl \
       unzip
 
